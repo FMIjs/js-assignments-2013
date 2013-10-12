@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.js"></script>
+    <script type="text/javascript" src="http://chaijs.com/chai.js"></script>
+    <script type="text/javascript" src="mocha.js"></script>
+    <link rel="stylesheet" href="mocha.css">
+
+    <script type="text/javascript">
+        $(function () {
+            chai.should();
+            $('#assignment').on('change', function () {
+                var assignemnt = $(this).find(':selected').val();
+
+                $('script#solution').detach();
+                var solution_script = document.createElement('script'),
+                    test_script = document.createElement('script');
+                solution_script.type = 'text/javascript';
+                test_script.type = 'text/javascript';
+                solution_script.src = assignemnt + '/solution.js';
+                test_script.src = assignemnt + '/sample_test.js';
+
+                mocha.setup('bdd');
+                mocha.checkLeaks();
+                document.querySelector('head').appendChild(solution_script);
+                document.querySelector('head').appendChild(test_script);
+
+                solution_script.onreadystatechange = solution_script.onload = function () {
+                    test_script.onreadystatechange = test_script.onload = function () {
+                        mocha.run();
+                    };
+                };
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <select id="assignment">
+        <option value="__">Изберете задача</option>
+        <option value="01">01</option>
+    </select>
+    <div id="mocha"></div>
+</body>
+</html>

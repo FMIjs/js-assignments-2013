@@ -1,10 +1,12 @@
 'use strict';
 /*globals describe, it*/
 
-var chai = require('chai');
-var solution = require('./solution');
+if (typeof module !== 'undefined' && module.exports) {
+    var chai = require('chai'),
+        solution = require('./solution');
 
-chai.should();
+    chai.should();
+}
 
 Array.prototype.count = function (elem) {
     return this.filter(function (e) {
