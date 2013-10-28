@@ -1,8 +1,13 @@
 'use strict';
 /*global describe, it, require*/
-var chai = require('chai');
 
-chai.should();
+if (typeof module !== 'undefined' && module.exports) {
+    var chai = require('chai'),
+    solution = require('./solution');
+
+    chai.should();
+}
+
 
 describe('Object.snoop', function () {
     it('exists', function () {
