@@ -1,6 +1,7 @@
-'use strict';
-
 Object.snoop = function(obj, prop, predicate) {
+
+    'use strict';
+
     var old_descriptor,
         is_accessor,
         descriptor,
@@ -10,7 +11,7 @@ Object.snoop = function(obj, prop, predicate) {
     Object.getOwnPropertyDescriptor(obj, prop) ||
     Object.getOwnPropertyDescriptor(obj.constructor.prototype, prop);
 
-    exists = Boolean(old_descriptor);
+    exists = !!old_descriptor;
 
     is_accessor = exists && (old_descriptor.get || old_descriptor.set);
 
